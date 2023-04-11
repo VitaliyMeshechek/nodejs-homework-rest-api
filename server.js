@@ -2,7 +2,7 @@ const mongoose = require('mongoose');
 
 const app = require('./app')
 
-const DB_HOST = "mongodb+srv://Vitalii:EVA05LygttAtQuLa@cluster0.suvr4pr.mongodb.net/db-contacts?retryWrites=true&w=majority";
+const {DB_HOST} = require('../config');
 
 mongoose.connect(DB_HOST)
   .then(() => {
