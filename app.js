@@ -8,6 +8,8 @@ const app = express()
 
 const formatsLogger = app.get('env') === 'development' ? 'dev' : 'short'
 
+require("dotenv").config();
+
 app.use(logger(formatsLogger))
 
 // cors
@@ -28,3 +30,5 @@ app.use((err, req, res, next) => {
 })
 
 module.exports = app
+
+// EVA05LygttAtQuLa
