@@ -2,6 +2,7 @@ const express = require('express')
 const logger = require('morgan')
 const cors = require('cors')
 
+const authRouter = require('./routes/api/users')
 const contactsRouter = require('./routes/api/contacts')
 
 const app = express()
@@ -18,6 +19,7 @@ app.use(cors())
 // parse application/json
 app.use(express.json())
 
+app.use('/api/users', authRouter)
 app.use('/api/contacts', contactsRouter)
 
 app.use((req, res) => {
@@ -31,4 +33,5 @@ app.use((err, req, res, next) => {
 
 module.exports = app
 
+// mongodb+srv://Vitalii:EVA05LygttAtQuLa@cluster0.suvr4pr.mongodb.net/test
 // EVA05LygttAtQuLa
