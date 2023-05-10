@@ -29,6 +29,15 @@ const userSchema = new Schema(
           avatarUrl: {
             type: String,
             required: true,
+          },
+          verify: {
+            type: Boolean,
+            default: false,
+          },
+          verificationToken: {
+            type: String,
+            default: "",
+            required: [true, 'Verify token is required'],
           }
     },
     { versionKey: false, timestamps: true }
@@ -38,20 +47,28 @@ const userSchema = new Schema(
 
   const registerSchema = Joi.object({
     password: Joi.string().min(6).required(),
-    email: Joi.string().required().pattern(emailFormat, "match the input format. Example of input: ivanov@gmail.com").email({
+    email: Joi.string().pattern(emailFormat, "match the input format. Example of input: ivanov@gmail.com").email({
         minDomainSegments: 2,
-        tlds: {allow: ["com", "net", "ukr"]},
+        tlds: {allow: ["com", "net", "ukr", "ua"]},
       }),
     subscription: Joi.string().required().valid("starter", "pro", "business"),
   });
 
+  const emailSchema = Joi.object({
+    email: Joi.string().required().pattern(emailFormat, "match the input format. Example of input: ivanov@gmail.com").email({
+        minDomainSegments: 2,
+        tlds: {allow: ["com", "net", "ukr", "ua"]},
+      }),
+  });
+
   const loginSchema = Joi.object({
     password: Joi.string().min(6).required(),
-    email: Joi.string().required().pattern(emailFormat),
+    email: Joi.string().required().pattern(emailFormat, "match the input format. Example of input: ivanov@gmail.com"),
   });
 
   const schemas = {
     registerSchema,
+    emailSchema,
     loginSchema,
   };
 
